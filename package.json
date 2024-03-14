@@ -14,9 +14,6 @@
   "keywords": [
     "react",
     "redux",
-    "@reduxjs",
-    "toolkit",
-    "redux-toolkit",
     "@reduxjs/toolkit",
     "createAsyncThunk",
     "createSlice",
