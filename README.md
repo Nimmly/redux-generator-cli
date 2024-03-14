@@ -28,3 +28,7 @@ It will generate folder "NAME_OF_YOUR_CHOICE" and inside it
 
 All the files will have to be updated based on your specifications and requirements, starting with
 NAME_OF_YOUR_CHOICE.types.ts
+
+## Folder structure example
+
+![folder-structure](https://github.com/Nimmly/redux-generator-cli/tree/main/assets/folder-structure.png?raw=true)
