@@ -16,5 +16,8 @@
   "license": "ISC",
   "dependencies": {
   },
-  "git_repo"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nimmly/redux-generator-cli.git"
+  }
 }
