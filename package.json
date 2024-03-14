@@ -1,6 +1,6 @@
 {
   "name": "redux-generator-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Boilerplate for redux with redux toolkit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
