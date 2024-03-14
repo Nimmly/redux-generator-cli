@@ -1,0 +1,20 @@
+{
+  "name": "redux-generator-cli",
+  "version": "1.0.0",
+  "description": "Boilerplate for redux with redux toolkit",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "redux-init": "index.js",
+    "redux-generate": "generator.js"
+  },
+  "keywords": [],
+  "author": "Marko Popovic",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "git_repo"
+}
