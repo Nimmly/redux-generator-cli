@@ -31,4 +31,4 @@ NAME_OF_YOUR_CHOICE.types.ts
 
 ## Folder structure example
 
-![folder-structure](https://github.com/Nimmly/redux-generator-cli/tree/main/assets/folder-structure.png?raw=true)
+![folder-structure](https://github.com/Nimmly/redux-generator-cli/tree/main/assets/folder-structure.png)
