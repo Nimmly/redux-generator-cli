@@ -76,6 +76,7 @@ const get${argMap[0].name} = createAsyncThunk<${argMap[0].name}ResponseType, ${a
     { rejectWithValue },
   ) => {
     try {
+      // Insert your api 
       const url = '';
       const { data } = await axios.get(url);
       return data;

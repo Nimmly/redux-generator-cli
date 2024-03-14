@@ -1,6 +1,6 @@
 {
   "name": "redux-generator-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Boilerplate for redux with redux toolkit",
   "main": "index.js",
   "type": "module",
@@ -11,7 +11,21 @@
     "redux-init": "index.js",
     "redux-generate": "generator.js"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "redux",
+    "@reduxjs",
+    "toolkit",
+    "redux-toolkit",
+    "@reduxjs/toolkit",
+    "createAsyncThunk",
+    "createSlice",
+    "store",
+    "dispatch",
+    "selector",
+    "reducer",
+    "typescript"
+  ],
   "author": "Marko Popovic",
   "license": "ISC",
   "dependencies": {
