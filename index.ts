@@ -2,12 +2,9 @@
 
 import fs from 'fs';
 import * as path from "path";
-import { fileURLToPath } from 'url';
 import {execSync} from 'child_process'
 
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename);
-const runCommand = command => {
+const runCommand = (command:string) => {
     try {
         execSync(`${command}`, {stdio: 'inherit'});
     } catch(error) {

@@ -2,15 +2,12 @@
 
 import fs from 'fs';
 import * as path from "path";
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename);
 const argvList = process.argv;
 
 const cleanArgList = argvList.slice(2).map(arg => {
     if(arg.includes("--")){
-     return  arg.replace("--",'').slice(0,arg.indexOf("=")-2)
+        return  arg.replace("--",'').slice(0,arg.indexOf("=")-2)
     }
 })
 
@@ -23,10 +20,11 @@ const argMap = argvList.slice(2).map(arg => {
     if(arg.includes("--")){
         const key = arg.replace("--",'').slice(0,arg.indexOf("=")-2)
         const value = arg.slice(arg.indexOf("=")+1)
-        if(key === 'name'){
+        if(key === 'name' && value !== ''){
             return {[key]:value}
         }
     }
+    process.exit(-1)
 })
 
 const defaultStates = `
@@ -134,7 +132,6 @@ export type ${argMap[0].name}RequestType = {};
 export type ${argMap[0].name}ResponseType = {};
 `;
 
-console.log(__dirname)
 const basePath = path.join(process.cwd(), `redux/${argMap[0].name}`);
 const defaultStatesPath = path.join(process.cwd(), 'redux/defaultStates');
 
