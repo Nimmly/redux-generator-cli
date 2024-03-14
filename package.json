@@ -2,14 +2,15 @@
   "name": "redux-generator-cli",
   "version": "1.0.2",
   "description": "Boilerplate for redux with redux toolkit",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "bin": {
-    "redux-init": "index.js",
-    "redux-generate": "generator.js"
+    "redux-init": "dist/index.js",
+    "redux-generate": "dist/generator.js"
   },
   "keywords": [
     "react",
@@ -26,6 +27,8 @@
   "author": "Marko Popovic",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.11.27",
+    "typescript": "^5.4.2"
   },
   "repository": {
     "type": "git",
