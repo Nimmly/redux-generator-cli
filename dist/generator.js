@@ -149,12 +149,37 @@ export type ${argMap[0].name}Type = {};
 export type ${argMap[0].name}RequestType = {};
 export type ${argMap[0].name}ResponseType = {};
 `;
+const customHookTemplate = `
+import { useEffect } from "react";
+import { useAppDispatch } from "../redux/hooks.ts";
+import { get${argMap[0].name} } from "../redux/${argMap[0].name}/${argMap[0].name}.actions.ts";
+import { ${argMap[0].name}RequestType } from "../redux/${argMap[0].name}/${argMap[0].name}.types.ts";
+
+const use${argMap[0].name}Hook = ({}: ${argMap[0].name}RequestType) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(get${argMap[0].name}({}));
+  }, [dispatch]);
+};
+export { use${argMap[0].name}Hook };
+`;
+(async () => {
+    try {
+        await fs_1.default.promises.access("redux/defaultStates/defaultStates.ts", fs_1.default.constants.F_OK);
+        return;
+    }
+    catch (err) {
+        const defaultStatesPath = path.join(process.cwd(), 'redux/defaultStates');
+        fs_1.default.mkdirSync(defaultStatesPath, { recursive: true });
+        fs_1.default.writeFileSync(path.join(defaultStatesPath, `defaultStates.ts`), defaultStates);
+    }
+})();
 const basePath = path.join(process.cwd(), `redux/${argMap[0].name}`);
-const defaultStatesPath = path.join(process.cwd(), 'redux/defaultStates');
-fs_1.default.mkdirSync(defaultStatesPath, { recursive: true });
-fs_1.default.writeFileSync(path.join(defaultStatesPath, `defaultStates.ts`), defaultStates);
+const hooksPath = path.join(process.cwd(), 'hooks');
 fs_1.default.mkdirSync(basePath, { recursive: true });
 fs_1.default.writeFileSync(path.join(basePath, `${argMap[0].name}.actions.ts`), actionsTemplate);
 fs_1.default.writeFileSync(path.join(basePath, `${argMap[0].name}.slice.ts`), sliceTemplate);
 fs_1.default.writeFileSync(path.join(basePath, `${argMap[0].name}.types.ts`), typesTemplate);
-console.log(`Files created in ${basePath}`);
+fs_1.default.mkdirSync(hooksPath, { recursive: true });
+fs_1.default.writeFileSync(path.join(hooksPath, `use${argMap[0].name}Hook.ts`), customHookTemplate);
+console.log(`Redux entity and custom hook created`);

@@ -132,12 +132,33 @@ export type ${argMap[0].name}RequestType = {};
 export type ${argMap[0].name}ResponseType = {};
 `;
 
+const customHookTemplate = `
+import { useEffect } from "react";
+import { useAppDispatch } from "../redux/hooks.ts";
+import { get${argMap[0].name} } from "../redux/${argMap[0].name}/${argMap[0].name}.actions.ts";
+import { ${argMap[0].name}RequestType } from "../redux/${argMap[0].name}/${argMap[0].name}.types.ts";
+
+const use${argMap[0].name}Hook = ({}: ${argMap[0].name}RequestType) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(get${argMap[0].name}({}));
+  }, [dispatch]);
+};
+export { use${argMap[0].name}Hook };
+`;
+(async () => {
+    try {
+        await fs.promises.access("redux/defaultStates/defaultStates.ts", fs.constants.F_OK);
+        return
+    } catch (err) {
+        const defaultStatesPath = path.join(process.cwd(), 'redux/defaultStates');
+        fs.mkdirSync(defaultStatesPath, { recursive: true });
+        fs.writeFileSync(path.join(defaultStatesPath, `defaultStates.ts`), defaultStates);
+    }
+})()
+
 const basePath = path.join(process.cwd(), `redux/${argMap[0].name}`);
-const defaultStatesPath = path.join(process.cwd(), 'redux/defaultStates');
-
-
-fs.mkdirSync(defaultStatesPath, { recursive: true });
-fs.writeFileSync(path.join(defaultStatesPath, `defaultStates.ts`), defaultStates);
+const hooksPath = path.join(process.cwd(), 'hooks')
 
 fs.mkdirSync(basePath, { recursive: true });
 
@@ -145,4 +166,7 @@ fs.writeFileSync(path.join(basePath, `${argMap[0].name}.actions.ts`), actionsTem
 fs.writeFileSync(path.join(basePath, `${argMap[0].name}.slice.ts`), sliceTemplate);
 fs.writeFileSync(path.join(basePath, `${argMap[0].name}.types.ts`), typesTemplate);
 
-console.log(`Files created in ${basePath}`);
+fs.mkdirSync(hooksPath, {recursive: true})
+fs.writeFileSync(path.join(hooksPath, `use${argMap[0].name}Hook.ts`),customHookTemplate)
+
+console.log(`Redux entity and custom hook created`);
