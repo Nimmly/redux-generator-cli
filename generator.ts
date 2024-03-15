@@ -155,7 +155,7 @@ export { use${argMap[0].name}Hook };
         fs.mkdirSync(defaultStatesPath, { recursive: true });
         fs.writeFileSync(path.join(defaultStatesPath, `defaultStates.ts`), defaultStates);
     }
-})()
+})();
 
 const basePath = path.join(process.cwd(), `redux/${argMap[0].name}`);
 const hooksPath = path.join(process.cwd(), 'hooks')
@@ -170,3 +170,21 @@ fs.mkdirSync(hooksPath, {recursive: true})
 fs.writeFileSync(path.join(hooksPath, `use${argMap[0].name}Hook.ts`),customHookTemplate)
 
 console.log(`Redux entity and custom hook created`);
+
+// TODO: future stuff
+// const checkForReduxFolder = () => {
+//     const files = fs.readdirSync(process.cwd());
+//     if(files.includes('redux')){
+//         return true
+//     }
+//     for(const file of files){
+//         const filePath = path.join(process.cwd(), file);
+//         const stats = fs.statSync(filePath)
+//
+//         if(stats.isDirectory() && checkForReduxFolder()){
+//             return true
+//         }
+//     }
+//     return false;
+// };
+// console.log(checkForReduxFolder())

@@ -20,11 +20,12 @@ state types/values (loading,status,error).
 
 >redux-generate --name=<NAME_OF_YOUR_CHOICE>
 
-It will generate folder "NAME_OF_YOUR_CHOICE" and inside it
+It will generate folders, "NAME_OF_YOUR_CHOICE" and hooks
 
 - NAME_OF_YOUR_CHOICE.actions.ts
 - NAME_OF_YOUR_CHOICE.slice.ts
 - NAME_OF_YOUR_CHOICE.types.ts
+- hooks/use<NAME_OF_YOUR_CHOICE>Hook.ts
 
 All the files will have to be updated based on your specifications and requirements, starting with
 NAME_OF_YOUR_CHOICE.types.ts
