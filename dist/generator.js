@@ -183,18 +183,20 @@ fs_1.default.writeFileSync(path.join(basePath, `${argMap[0].name}.types.ts`), ty
 fs_1.default.mkdirSync(hooksPath, { recursive: true });
 fs_1.default.writeFileSync(path.join(hooksPath, `use${argMap[0].name}Hook.ts`), customHookTemplate);
 console.log(`Redux entity and custom hook created`);
-const checkForReduxFolder = () => {
-    const files = fs_1.default.readdirSync(process.cwd());
-    if (files.includes('redux')) {
-        return true;
-    }
-    for (const file of files) {
-        const filePath = path.join(process.cwd(), file);
-        const stats = fs_1.default.statSync(filePath);
-        if (stats.isDirectory() && checkForReduxFolder()) {
-            return true;
-        }
-    }
-    return false;
-};
-console.log(checkForReduxFolder());
+// TODO: future stuff
+// const checkForReduxFolder = () => {
+//     const files = fs.readdirSync(process.cwd());
+//     if(files.includes('redux')){
+//         return true
+//     }
+//     for(const file of files){
+//         const filePath = path.join(process.cwd(), file);
+//         const stats = fs.statSync(filePath)
+//
+//         if(stats.isDirectory() && checkForReduxFolder()){
+//             return true
+//         }
+//     }
+//     return false;
+// };
+// console.log(checkForReduxFolder())
