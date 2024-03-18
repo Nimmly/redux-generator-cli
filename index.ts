@@ -3,6 +3,10 @@
 import fs from 'fs';
 import * as path from "path";
 import {execSync} from 'child_process'
+import * as readline from "readline";
+import {reducerTemplate} from "./templates/reducerTemplate";
+import {storeTemplate} from "./templates/storeTemplate";
+import {hookTemplate} from "./templates/hookTemplate";
 
 const runCommand = (command:string) => {
     try {
@@ -14,53 +18,44 @@ const runCommand = (command:string) => {
     return true
 }
 
-const installDeps = runCommand(`npm i axios react-redux @reduxjs/toolkit`);
-if(!installDeps){
-    process.exit(-1)
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+const managerChoice = (choices: string[]) => {
+    return new Promise((resolve, reject) => {
+        const validChoices = choices.map(choice => choice.toLowerCase());
+        rl.question("Which manager are you using? Yarn/Npm ", (answer) => {
+            const formattedAnswer = answer.toLowerCase().trim();
+            if(validChoices.includes(formattedAnswer)) {
+                resolve(formattedAnswer.trim())
+            } else {
+                console.log('\x1b[31m%s\x1b[0m','Invalid choice. Please select one of the given options.');
+                managerChoice(choices).then(resolve);
+            }
+        })
+    })
 }
+(async () => {
+    const choices = ["npm", "yarn"]
+    const manager = await managerChoice(choices)
+    rl.close();
 
-const hookTemplate = `
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./store";
+    const npmCommands = "npm i axios react-redux @reduxjs/toolkit"
+    const yarnCommands = "yarn add axios react-redux @reduxjs/toolkit"
 
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-`;
+    const installDeps = runCommand(manager === 'npm' ? npmCommands : yarnCommands);
+    if(!installDeps){
+        process.exit(-1)
+    }
+    const basePath = path.join(process.cwd(), 'redux');
+    fs.mkdirSync(basePath, { recursive: true });
 
-const storeTemplate = `
-import { configureStore } from "@reduxjs/toolkit";
-import { reducer } from "./reducer";
+    fs.writeFileSync(path.join(basePath, `hooks.ts`), hookTemplate);
+    fs.writeFileSync(path.join(basePath, `reducer.ts`), reducerTemplate);
+    fs.writeFileSync(path.join(basePath, `store.ts`), storeTemplate);
 
-export const makeStore = () =>
-  configureStore({
-    reducer,
-    devTools: true,
-  });
-
-const store = makeStore();
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export default store;
-`;
-
-const reducerTemplate = `
-import { combineReducers } from "@reduxjs/toolkit";
-
-const reducer = combineReducers({
-});
-
-export { reducer };
-`;
+    console.log(`Files created in ${basePath}`);
+})()
 
 
-const basePath = path.join(process.cwd(), 'redux');
-fs.mkdirSync(basePath, { recursive: true });
-
-fs.writeFileSync(path.join(basePath, `hooks.ts`), hookTemplate);
-fs.writeFileSync(path.join(basePath, `reducer.ts`), reducerTemplate);
-fs.writeFileSync(path.join(basePath, `store.ts`), storeTemplate);
-
-
-console.log(`Files created in ${basePath}`);
