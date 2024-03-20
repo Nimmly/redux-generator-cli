@@ -6,10 +6,11 @@
 - Generate Actions, Slice, Types files for the given name
 
 ## Installing
-> npm i -g redux-generate-cli
+> npm i -g redux-generator-cli
 
 
 ## Usage
+Go to your root folder of a project and run
 
 >redux-init
 

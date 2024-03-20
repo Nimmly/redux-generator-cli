@@ -3,7 +3,7 @@
 import fs from 'fs';
 import * as path from "path";
 import {defaultStates} from "./templates/defaultStates";
-import {toCamelCase} from "./utils/helpers";
+import {toCamelCase, toPascalCase} from "./utils/helpers";
 import {actionsTemplate} from "./templates/actionsTemplate";
 import {sliceTemplate} from "./templates/sliceTemplate";
 import {typesTemplate} from "./templates/typesTemplate";
@@ -57,6 +57,6 @@ fs.writeFileSync(path.join(basePath, `${toCamelCase(entityName)}.slice.ts`), sli
 fs.writeFileSync(path.join(basePath, `${toCamelCase(entityName)}.types.ts`), typesTemplate(entityName));
 
 fs.mkdirSync(hooksPath, {recursive: true})
-fs.writeFileSync(path.join(hooksPath, `use${entityName}Hook.ts`),customHookTemplate(entityName))
+fs.writeFileSync(path.join(hooksPath, `use${toPascalCase(entityName)}Hook.ts`),customHookTemplate(entityName))
 
 console.log('\x1b[34m%s\x1b[0m',`Redux entity and custom hook created`);

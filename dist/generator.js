@@ -74,5 +74,5 @@ fs_1.default.writeFileSync(path.join(basePath, `${(0, helpers_1.toCamelCase)(ent
 fs_1.default.writeFileSync(path.join(basePath, `${(0, helpers_1.toCamelCase)(entityName)}.slice.ts`), (0, sliceTemplate_1.sliceTemplate)(entityName));
 fs_1.default.writeFileSync(path.join(basePath, `${(0, helpers_1.toCamelCase)(entityName)}.types.ts`), (0, typesTemplate_1.typesTemplate)(entityName));
 fs_1.default.mkdirSync(hooksPath, { recursive: true });
-fs_1.default.writeFileSync(path.join(hooksPath, `use${entityName}Hook.ts`), (0, customHookTemplate_1.customHookTemplate)(entityName));
+fs_1.default.writeFileSync(path.join(hooksPath, `use${(0, helpers_1.toPascalCase)(entityName)}Hook.ts`), (0, customHookTemplate_1.customHookTemplate)(entityName));
 console.log('\x1b[34m%s\x1b[0m', `Redux entity and custom hook created`);
